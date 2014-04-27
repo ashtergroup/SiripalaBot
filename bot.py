@@ -51,6 +51,26 @@ def retweet():
 	tweet_stat["mention_sl"]=retweets[-1].id
 	write_stat()
 
+def mention_me():
+	read_stat()
+	try:
+		mentions = api.mentions(since_id=tweet_stat["mention"])
+	except:
+		mentions = api.mentions()
+	for t in mentions:
+		try:
+			if check_ban(t.text):
+				api.update_status("@"+t.user.screen_name+" Mentioned me.")
+				print("Mentioned Me: "+str(t.user.screen_name))
+			else:
+				print("Ban")
+		except:
+			print("mention me Failed")
+	tweet_stat["mention"]=retweets[-1].id
+	write_stat()
+
 while True:
 	retweet()
+	time.sleep(10)
+	mention_me()
 	time.sleep(1800)
