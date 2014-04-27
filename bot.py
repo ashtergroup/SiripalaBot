@@ -70,7 +70,7 @@ def mention_me():
 	write_stat()
 
 while True:
-	#retweet()
+	retweet()
 	time.sleep(10)
 	mention_me()
 	time.sleep(600)
