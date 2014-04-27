@@ -73,4 +73,4 @@ while True:
 	#retweet()
 	time.sleep(10)
 	mention_me()
-	time.sleep(1800)
+	time.sleep(600)
