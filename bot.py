@@ -54,9 +54,9 @@ def retweet():
 def mention_me():
 	read_stat()
 	try:
-		mentions = api.mentions(since_id=tweet_stat["mention"])
+		mentions = api.mentions_timeline(since_id=tweet_stat["mention"])
 	except:
-		mentions = api.mentions()
+		mentions = api.mentions_timeline()
 	for t in mentions:
 		try:
 			if check_ban(t.text):
@@ -66,11 +66,11 @@ def mention_me():
 				print("Ban")
 		except:
 			print("mention me Failed")
-	tweet_stat["mention"]=retweets[-1].id
+	tweet_stat["mention"]=mentions[-1].id
 	write_stat()
 
 while True:
-	retweet()
+	#retweet()
 	time.sleep(10)
 	mention_me()
 	time.sleep(1800)
