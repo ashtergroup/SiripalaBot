@@ -1,9 +1,12 @@
-import tweepy , time , os , ConfigParser , pickle
+import tweepy , time , os , ConfigParser , pickle , sys
 
 tweet_stat = dict(mention=None,mention_sl=None,followers=None)
+mention_list =["Mentioned Me.", "Did you remeber me", "Thank you for remebering me"]
+random_list =["gathering up Sri Lanka in twitter","Ayubowan Sri Lanka","Worlds best contry Sri Lanka"]
 config = ConfigParser.ConfigParser()
 config.read('config')
 auth = None
+times =1
 
 def read_stat():
 	fh = open("tstat", "rb")
@@ -60,7 +63,7 @@ def mention_me():
 	for t in mentions:
 		try:
 			if check_ban(t.text):
-				api.update_status("@"+t.user.screen_name+" Mentioned me.")
+				api.update_status("@"+t.user.screen_name+" "+mention_list[random.randrange(0,size(mention_list))]) 
 				print("Mentioned Me: "+str(t.user.screen_name))
 			else:
 				print("Ban")
@@ -72,8 +75,17 @@ def mention_me():
 		pass
 	write_stat()
 
+def random_tweet():
+	try:
+		api.update_status(random_list[random.randrange(0,size(random_list))])
+	except:
+		print("Random Tweet Error")
 while True:
+	if times ==6:
+		random_tweet()
+		times =1
 	retweet()
 	time.sleep(10)
 	mention_me()
 	time.sleep(600)
+	times = times + 1
