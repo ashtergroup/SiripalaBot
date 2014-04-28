@@ -1,10 +1,11 @@
-import tweepy , time , os , ConfigParser , pickle , sys
+import tweepy , time , os , ConfigParser , pickle , sys , random , json , urllib2
 
 tweet_stat = dict(mention=None,mention_sl=None,followers=None)
 mention_list =["Mentioned Me.", "Did you remeber me", "Thank you for remebering me"]
-random_list =["gathering up Sri Lanka in twitter","Ayubowan Sri Lanka","Worlds best contry Sri Lanka"]
+random_list =["gathering up Sri Lanka in twitter","Ayubowan Sri Lanka","Worlds best contry Sri Lanka","Twitter Forever"]
 config = ConfigParser.ConfigParser()
 config.read('config')
+w_id = "EXX0001"
 auth = None
 times =1
 
@@ -19,6 +20,7 @@ def check_ban(t):
 		return False
 	else:
 		return True
+
 try:
 	auth = tweepy.OAuthHandler(config.get("Auth","a_key"),
 		config.get("Auth","a_secret"))
@@ -78,14 +80,27 @@ def mention_me():
 def random_tweet():
 	try:
 		api.update_status(random_list[random.randrange(0,len(random_list))])
+		print("Random Tweet Send")
 	except:
 		print("Random Tweet Error")
+
+def whe_stat():
+	try:
+		html = urllib2.urlopen("http://query.yahooapis.com/v1/public/yql?q=select%20item%20from%20weather.forecast%20where%20location%3D%22C"+w_id+"%22&format=json")
+		json_d = json.loads(html.read())
+		api.update_status("The Wether in colombo looks "+ json_d["query"]["results"]["channel"]["item"]["condition"]["text"])
+		print("Whether Tweet send")
+	except:
+		print("Whether Tweet Failed");
+
 while True:
 	if times ==6:
 		random_tweet()
 		times =1
+	elif times == 5:
+		whe_stat()
 	retweet()
 	time.sleep(10)
-	#mention_me()
+	mention_me()
 	time.sleep(600)
 	times = times + 1
