@@ -1,7 +1,6 @@
 import tweepy , time , os , ConfigParser , pickle , sys , random , json , urllib2
 
 tweet_stat = dict(mention=None,mention_sl=None,followers=None)
-mention_list =["Mentioned Me.", "Did you remeber me", "Thank you for remebering me"]
 random_list =["gathering up Sri Lanka in twitter","Ayubowan Sri Lanka","Worlds best contry Sri Lanka","Twitter Forever"]
 config = ConfigParser.ConfigParser()
 config.read('config')
@@ -16,13 +15,14 @@ def write_stat():
 	fh = open("tstat", "w")
 	pickle.dump(tweet_stat,fh)
 def check_ban(t,u):
-	if any(word in t for word in ban_user):
-		return False
-	else:
-		if any(word in t for word in words):
+	for i in ban_user:
+		if i == u:
 			return False
 		else:
-			return True
+			if any(word in t for word in words):
+				return False
+			else:
+				return True
 
 try:
 	auth = tweepy.OAuthHandler(config.get("Auth","a_key"),
@@ -82,6 +82,7 @@ while True:
 		times =1
 	elif times == 5:
 		whe_stat()
+		retweet()
 	retweet()
 	time.sleep(10)
 	print("Time out")
