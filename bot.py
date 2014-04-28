@@ -65,7 +65,7 @@ def mention_me():
 	for t in mentions:
 		try:
 			if check_ban(t.text):
-				api.update_status("@"+t.user.screen_name+" "+mention_list[random.randrange(0,len(mention_list))]) 
+				api.update_status("@"+t.user.screen_name+" "+mention_list[random.randrange(0,len(mention_list)-1)]) 
 				print("Mentioned Me: "+str(t.user.screen_name))
 			else:
 				print("Ban")
@@ -79,7 +79,7 @@ def mention_me():
 
 def random_tweet():
 	try:
-		api.update_status(random_list[random.randrange(0,len(random_list))])
+		api.update_status(random_list[random.randrange(0,len(random_list)-1)])
 		print("Random Tweet Send")
 	except:
 		print("Random Tweet Error")
