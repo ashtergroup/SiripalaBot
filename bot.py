@@ -66,7 +66,8 @@ def mention_me():
 				print("Ban")
 		except:
 			print("mention me Failed")
-	tweet_stat["mention"]=mentions[-1].id
+	try:
+		tweet_stat["mention"]=mentions[-1].id
 	write_stat()
 
 while True:
