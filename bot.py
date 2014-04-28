@@ -10,10 +10,10 @@ auth = None
 times =1
 
 def read_stat():
-	fh = open("tstat", "rb")
+	fh = open("tstat", "r")
 	tweet_stat=pickle.load(fh)
 def write_stat():
-	fh = open("tstat", "wb")
+	fh = open("tstat", "w")
 	pickle.dump(tweet_stat,fh)
 def check_ban(t):
 	if any(word in t for word in words):
