@@ -15,18 +15,22 @@ def read_stat():
 def write_stat():
 	fh = open("tstat", "w")
 	pickle.dump(tweet_stat,fh)
-def check_ban(t):
-	if any(word in t for word in words):
+def check_ban(t,u):
+	if any(word in t for word in ban_user):
 		return False
 	else:
-		return True
+		if any(word in t for word in words):
+			return False
+		else:
+			return True
 
 try:
 	auth = tweepy.OAuthHandler(config.get("Auth","a_key"),
 		config.get("Auth","a_secret"))
 	auth.set_access_token(config.get("Auth","a_token"),
 		config.get("Auth","aa_secret"))
-	words = config.get("Auth","words").split(' ')
+	words = config.get("Config","ban_words").split(' ')
+	ban_user = config.get("Config","ban_user").split(' ')
 except:
 	print("Auth Fail")
 	exit()
@@ -46,35 +50,14 @@ def retweet():
 		retweets = api.search("#SriLanka")
 	for t in retweets:
 		try:
-			if check_ban(t.text):
+			if check_ban(t.text,t.user.screen_name):
 				api.retweet(t.id)
 				print("Retweeted: "+str(t.id))
 			else:
-				print("Ban")
+				print("Ban "+t.user.screen_name )
 		except:
 			print("Retweeting Failed")
 	tweet_stat["mention_sl"]=retweets[-1].id
-	write_stat()
-
-def mention_me():
-	read_stat()
-	try:
-		mentions = api.mentions_timeline(since_id=tweet_stat["mention"])
-	except:
-		mentions = api.mentions_timeline()
-	for t in mentions:
-		try:
-			if check_ban(t.text):
-				api.update_status("@"+t.user.screen_name+" "+mention_list[random.randrange(0,len(mention_list)-1)]) 
-				print("Mentioned Me: "+str(t.user.screen_name))
-			else:
-				print("Ban")
-		except:
-			print("mention me Failed")
-	try:
-		tweet_stat["mention"]=mentions[-1].id
-	except:
-		pass
 	write_stat()
 
 def random_tweet():
@@ -101,7 +84,6 @@ while True:
 		whe_stat()
 	retweet()
 	time.sleep(10)
-	#mention_me()
 	print("Time out")
 	time.sleep(600)
 	print("Time out Over")

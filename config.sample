@@ -3,4 +3,6 @@ a_key:
 a_secret:
 a_token:
 aa_secret:
-words:RT
+[Config]
+ban_words:
+ban_user:
