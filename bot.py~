@@ -68,8 +68,6 @@ def mention_me():
 			print("mention me Failed")
 	try:
 		tweet_stat["mention"]=mentions[-1].id
-	except:
-		pass
 	write_stat()
 
 while True:
