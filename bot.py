@@ -101,7 +101,7 @@ while True:
 		whe_stat()
 	retweet()
 	time.sleep(10)
-	mention_me()
+	#mention_me()
 	print("Time out")
 	time.sleep(600)
 	print("Time out Over")
