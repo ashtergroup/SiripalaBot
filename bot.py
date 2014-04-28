@@ -1,7 +1,11 @@
 import tweepy , time , os , ConfigParser , pickle , sys , random , json , urllib2
 
-tweet_stat = dict(mention=None,mention_sl=None,followers=None)
-random_list =["gathering up Sri Lanka in twitter","Ayubowan Sri Lanka","Worlds best contry Sri Lanka","Twitter Forever"]
+tweet_stat = dict(mention_sl=None)
+random_list =["gathering up Sri Lanka with the power in twitter",
+	"Ayubowan Sri Lanka",
+	"Worlds best contry Sri Lanka",
+	"Twitter Forever",
+	"Sri Lanka, our motherland"]
 config = ConfigParser.ConfigParser()
 config.read('config')
 w_id = "EXX0001"
@@ -15,14 +19,13 @@ def write_stat():
 	fh = open("tstat", "w")
 	pickle.dump(tweet_stat,fh)
 def check_ban(t,u):
-	for i in ban_user:
-		if i == u:
+	if any(word in u for word in ban_user):
+		return False
+	else:
+		if any(word in t for word in words):
 			return False
 		else:
-			if any(word in t for word in words):
-				return False
-			else:
-				return True
+			return True 
 
 try:
 	auth = tweepy.OAuthHandler(config.get("Auth","a_key"),
