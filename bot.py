@@ -102,5 +102,7 @@ while True:
 	retweet()
 	time.sleep(10)
 	mention_me()
+	print("Time out")
 	time.sleep(600)
+	print("Time out Over")
 	times = times + 1
