@@ -86,6 +86,6 @@ while True:
 		times =1
 	retweet()
 	time.sleep(10)
-	mention_me()
+	#mention_me()
 	time.sleep(600)
 	times = times + 1
