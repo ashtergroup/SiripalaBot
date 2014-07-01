@@ -80,15 +80,6 @@ class TweetListner(StreamListener):
 				print("Ban "+t["user"]["screen_name"])
 		except:
 			print("Retweeting Failed")
-		try:
-			self.tim +=1
-		except:
-			self.tim = 1
-		if self.tim<50:
-			random_tweet()
-		elif self.tim <55:
-			whe_stat()
-			self.tim = 1
 		return True
 
     def on_error(self, status):
