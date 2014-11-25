@@ -77,7 +77,7 @@ class MainListner(StreamListener):
 				self.api.retweet(t["id"])
 				print("Retweeted: " + t["user"]["screen_name"])
 				for ment in t["entities"]["user_mentions"]:
-					if (ment["id"] == 2357666562):
+					if (ment["id"] == 2854357578):
 						self.api.create_favorite(t["id"])
 						print("Fevorited " + t["user"]["screen_name"])
 			else:
