@@ -91,4 +91,4 @@ class MainListner(StreamListener):
 
 ML = MainListner(api,textrc,config)
 tweetStr = Stream(auth,ML)
-tweetStr.filter(track=["#SriLanka","#lka"])	
+tweetStr.filter(track=["#NarendraModi","#Modi"])	
