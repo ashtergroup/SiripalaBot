@@ -1,8 +1,8 @@
 [Auth]
-a_key:
-a_secret:
-a_token:
-aa_secret:
+a_key:yaqW2fgqyRk5xBhBDuvxFydUm
+a_secret:DxEP9qhJje7Na7fJxCRy3B2z4rkKf09jdFll9eDDGmRvkzPYsm
+a_token:2854357578-s99urTacJrZNpC2ht0ae7QJ2dyP7wUfXyyv039I
+aa_secret:EG1fkWqbpuEoZGVF0v7cYVwuCAHZbkpBUK0GTAbN0pYsO
 [Config]
 ban_words:
 ban_user:
